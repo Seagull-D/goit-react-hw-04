@@ -1,12 +1,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-const SearchBar = () => {
+const SearchBar = ({ request }) => {
   const [query, setQuery] = useState("");
-  const handleQery = (evt) => {
+  const handleQuery = (evt) => {
     setQuery(evt.target.value.trim());
   };
 
-  const handleSabmit = (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!query) {
       console.log("input empty");
@@ -19,20 +19,21 @@ const SearchBar = () => {
         },
       });
     }
-
-    console.log(query);
+    request(query.trim());
+    setQuery("");
   };
   return (
     <header>
       <form>
         <input
-          onChange={handleQery}
+          onChange={handleQuery}
+          value={query}
           type="text"
-          autocomplete="off"
-          autofocus
+          autoComplete="off"
+          autoFocus
           placeholder="Search images and photos"
         />
-        <button onClick={handleSabmit} type="submit">
+        <button onClick={handleSubmit} type="submit">
           Search
         </button>
       </form>
