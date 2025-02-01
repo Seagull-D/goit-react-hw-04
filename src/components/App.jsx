@@ -60,23 +60,22 @@ const App = () => {
           }
         );
       } finally {
-        console.log("FINNALY");
         setLoading(false);
       }
     };
     getData();
   }, [query, page]);
-  console.log(isError);
+
   const handleClick = () => {
     setPage((prev) => prev + 1);
   };
-  console.log(isError);
+
   const handleSetQuery = (newQuery) => {
     setQuery(newQuery);
     setHits([]);
     setPage(1);
   };
-  console.log(hits);
+
   return (
     <>
       <Toaster />

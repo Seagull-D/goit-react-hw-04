@@ -36,7 +36,7 @@ const SearchBar = ({ request }) => {
           autoFocus
           placeholder="Search images and photos"
         />
-        <button onClick={handleSubmit} type="submit">
+        <button className={s.buttonSearch} onClick={handleSubmit} type="submit">
           Search
         </button>
       </form>

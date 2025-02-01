@@ -1,11 +1,8 @@
-
-
 body {
   font-family: sans-serif;
   line-height: 1.5;
+  background: radial-gradient(circle, #2c3e50, #34495e);
 }
-
-
 
 h1,
 h2,
@@ -19,13 +16,12 @@ p {
 
 ul,
 ol {
-    list-style: none;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 img {
-  
   display: block;
   max-width: 100%;
 }
