@@ -1,5 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import s from "./SearchBar.module.css";
 const SearchBar = ({ request }) => {
   const [query, setQuery] = useState("");
   const handleQuery = (evt) => {
@@ -17,6 +18,7 @@ const SearchBar = ({ request }) => {
           background: "#333",
           color: "#fff",
         },
+        position: "top-left",
       });
     }
     request(query.trim());
@@ -24,8 +26,9 @@ const SearchBar = ({ request }) => {
   };
   return (
     <header>
-      <form>
+      <form className={s.inputForm}>
         <input
+          className={s.input}
           onChange={handleQuery}
           value={query}
           type="text"

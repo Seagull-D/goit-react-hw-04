@@ -1,0 +1,9 @@
+.inputForm {
+  margin-bottom: 30px;
+}
+.input {
+  height: 40px;
+  width: 250px;
+  border-radius: 7px;
+  padding-left: 20px;
+}

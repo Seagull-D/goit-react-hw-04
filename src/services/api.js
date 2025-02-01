@@ -13,7 +13,7 @@ const fetchPictures = async (query) => {
       params: {
         query: query,
         client_id: API_KEY,
-        per_page: 12,
+        per_page: 15,
       },
     });
 
@@ -23,7 +23,8 @@ const fetchPictures = async (query) => {
       "Error fetching images:",
       error.response?.data || error.message
     );
-    return [];
+
+    throw new Error("Failed to fetch pictures");
   }
 };
 
