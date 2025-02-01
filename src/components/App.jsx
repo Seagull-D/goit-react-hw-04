@@ -13,7 +13,7 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   useEffect(() => {
     if (!query) return;
     const getData = async () => {
@@ -70,16 +70,21 @@ const App = () => {
   const handleClick = () => {
     setPage((prev) => prev + 1);
   };
+  console.log(isError);
   const handleSetQuery = (newQuery) => {
     setQuery(newQuery);
     setHits([]);
+    setPage(1);
   };
+  console.log(hits);
   return (
     <>
       <Toaster />
       <SearchBar request={handleSetQuery} />
+
       {!isError ? <ImageGallery hitsArrey={hits} /> : <ErrorMessage />}
       <Loader loading={isLoading} />
+
       {hits.length > 0 && !isLoading && (
         <LoadMoreBtn handleClick={handleClick} />
       )}

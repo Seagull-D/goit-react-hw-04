@@ -1,11 +1,12 @@
 .imageGallery {
   display: flex;
-  flex-wrap: wrap; /* Дозволяє переносити елементи */
-  justify-content: center; /* Центрує контент */
-  align-items: center; /* Вирівнює елементи по вертикалі */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
   padding: 0;
   margin: 0;
-  max-height: 100vw; /* Галерея на всю ширину екрана */
-  min-height: 100vh; /* Галерея на всю висоту екрана */
+  max-height: 100vw;
+  min-height: 100vh;
+  margin-bottom: 15px;
 }
