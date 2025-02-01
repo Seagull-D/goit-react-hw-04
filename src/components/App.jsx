@@ -39,7 +39,6 @@ const App = () => {
           });
         }
         setHits((prev) => [...prev, ...data]);
-        console.log(data);
       } catch (error) {
         setIsError(true);
         console.log(error);
@@ -71,10 +70,14 @@ const App = () => {
   const handleClick = () => {
     setPage((prev) => prev + 1);
   };
+  const handleSetQuery = (newQuery) => {
+    setQuery(newQuery);
+    setHits([]);
+  };
   return (
     <>
       <Toaster />
-      <SearchBar request={setQuery} />
+      <SearchBar request={handleSetQuery} />
       {!isError ? <ImageGallery hitsArrey={hits} /> : <ErrorMessage />}
       <Loader loading={isLoading} />
       {hits.length > 0 && !isLoading && (
