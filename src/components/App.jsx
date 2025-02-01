@@ -85,7 +85,7 @@ const App = () => {
 
       <Loader loading={isLoading} />
 
-      {hits.length > 0 && !isLoading && (
+      {hits.length > 0 && !isLoading && !isError && (
         <LoadMoreBtn handleClick={handleClick} />
       )}
     </>
