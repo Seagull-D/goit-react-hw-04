@@ -6,13 +6,14 @@ import fetchPictures from "../services/api";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 
 const App = () => {
   const [hits, setHits] = useState([]);
   const [query, setQuery] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
+  const [page, setPage] = useState(0);
   useEffect(() => {
     if (!query) return;
     const getData = async () => {
@@ -20,8 +21,7 @@ const App = () => {
       setIsError(false);
 
       try {
-        setHits([]);
-        const data = await fetchPictures(query);
+        const data = await fetchPictures(query, page);
         if (data.length === 0) {
           toast.error("No images found for this request! 😕", {
             style: {
@@ -38,7 +38,8 @@ const App = () => {
             position: "top-left",
           });
         }
-        setHits(data);
+        setHits((prev) => [...prev, ...data]);
+        console.log(data);
       } catch (error) {
         setIsError(true);
         console.log(error);
@@ -65,14 +66,20 @@ const App = () => {
       }
     };
     getData();
-  }, [query]);
+  }, [query, page]);
   console.log(isError);
+  const handleClick = () => {
+    setPage((prev) => prev + 1);
+  };
   return (
     <>
       <Toaster />
       <SearchBar request={setQuery} />
       {!isError ? <ImageGallery hitsArrey={hits} /> : <ErrorMessage />}
       <Loader loading={isLoading} />
+      {hits.length > 0 && !isLoading && (
+        <LoadMoreBtn handleClick={handleClick} />
+      )}
     </>
   );
 };
