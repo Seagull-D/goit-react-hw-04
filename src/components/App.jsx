@@ -82,6 +82,7 @@ const App = () => {
       <SearchBar request={handleSetQuery} />
 
       {!isError ? <ImageGallery hitsArrey={hits} /> : <ErrorMessage />}
+
       <Loader loading={isLoading} />
 
       {hits.length > 0 && !isLoading && (
