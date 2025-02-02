@@ -9,7 +9,7 @@ const SearchBar = ({ request }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!query) {
+    if (!query || query === "") {
       console.log("input empty");
       toast("I'm waiting for your request", {
         icon: "👏",
@@ -20,6 +20,7 @@ const SearchBar = ({ request }) => {
         },
         position: "top-left",
       });
+      return;
     }
     request(query.trim());
     setQuery("");

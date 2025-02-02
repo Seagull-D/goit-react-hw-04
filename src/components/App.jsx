@@ -7,6 +7,7 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./ImageModal/ImageModal"; // Переносимо модалку сюди
 
 const App = () => {
   const [hits, setHits] = useState([]);
@@ -14,6 +15,9 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
+
   useEffect(() => {
     if (!query) return;
     const getData = async () => {
@@ -40,8 +44,8 @@ const App = () => {
         }
         setHits((prev) => [...prev, ...data]);
       } catch (error) {
+        console.error(error);
         setIsError(true);
-        console.log(error);
         toast.error(
           "There was an error loading images, please try again later😢",
           {
@@ -76,19 +80,40 @@ const App = () => {
     setPage(1);
   };
 
+  // Функції для модального вікна
+  const openModal = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedImage("");
+  };
+
   return (
     <>
       <Toaster />
       <SearchBar request={handleSetQuery} />
 
-      {!isError ? <ImageGallery hitsArrey={hits} /> : <ErrorMessage />}
+      {!isError ? (
+        <ImageGallery hitsArrey={hits} onImageClick={openModal} />
+      ) : (
+        <ErrorMessage />
+      )}
 
       <Loader loading={isLoading} />
 
       {hits.length > 0 && !isLoading && !isError && (
         <LoadMoreBtn handleClick={handleClick} />
       )}
+      <ImageModal
+        isOpen={modalIsOpen}
+        imageUrl={selectedImage}
+        onRequestClose={closeModal}
+      />
     </>
   );
 };
+
 export default App;
