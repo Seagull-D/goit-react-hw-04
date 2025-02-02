@@ -1,16 +1,17 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import s from "./SearchBar.module.css";
+
 const SearchBar = ({ request }) => {
   const [query, setQuery] = useState("");
+
   const handleQuery = (evt) => {
     setQuery(evt.target.value.trim());
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!query || query === "") {
-      console.log("input empty");
+    if (!query) {
       toast("I'm waiting for your request", {
         icon: "👏",
         style: {
@@ -22,12 +23,13 @@ const SearchBar = ({ request }) => {
       });
       return;
     }
-    request(query.trim());
+    request(query);
     setQuery("");
   };
+
   return (
     <header>
-      <form className={s.inputForm}>
+      <form className={s.inputForm} onSubmit={handleSubmit}>
         <input
           className={s.input}
           onChange={handleQuery}
@@ -37,7 +39,7 @@ const SearchBar = ({ request }) => {
           autoFocus
           placeholder="Search images and photos"
         />
-        <button className={s.buttonSearch} onClick={handleSubmit} type="submit">
+        <button className={s.buttonSearch} type="submit">
           Search
         </button>
       </form>
